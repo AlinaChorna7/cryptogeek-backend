@@ -1,0 +1,33 @@
+{
+  "name": "cryptogeek-backend",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint src/**/*.js",
+    "start": "node ./src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlinaChorna7/cryptogeek-backend.git"
+  },
+  "keywords": [],
+  "author": "Alina Chorna <alina.chorna322@gmail.com>",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/AlinaChorna7/cryptogeek-backend/issues"
+  },
+  "homepage": "https://github.com/AlinaChorna7/cryptogeek-backend#readme",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pino-http": "^10.4.0"
+  }
+}
