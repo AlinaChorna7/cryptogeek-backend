@@ -1,4 +1,4 @@
-import { loginUser, logoutUser, registerUser } from "../servises/auth.js";
+import { loginUser, logoutUser, refreshUsersSession, registerUser } from "../servises/auth.js";
 import { ONE_DAY } from "../constans/index.js";
 
 
@@ -41,4 +41,35 @@ res.clearCookie('refreshToken');
 
 res.status(204).send();
 };
+};
+
+
+const setupSession = (res, session) =>{
+res.cookies('refreshToken', session.refreshToken,{
+    httpOnly: true,
+    expires: new Date(Date.now() + ONE_DAY),
+});
+
+res.cookies('sessionId', session._id, {
+    httpOnly: true,
+    expires: new Date(Date.now() + ONE_DAY),
+});
+};
+
+export const refreshUsersSessionController = async (req, res) =>{
+
+    const session = await refreshUsersSession({
+sessionId: req.cookies.sessionId,
+refreshToken: req.cookies.refreshToken,
+    });
+
+    setupSession(res, session);
+
+    res.status({
+        status: 200,
+        message: 'Session was seccessfully refreshed',
+        data: {
+            accessToken: session.accessToken,
+        }
+    });
 };
