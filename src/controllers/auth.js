@@ -65,11 +65,12 @@ refreshToken: req.cookies.refreshToken,
 
     setupSession(res, session);
 
-    res.status({
+    res.status(200).json({
         status: 200,
-        message: 'Session was seccessfully refreshed',
+        message: 'Session was successfully refreshed',
         data: {
             accessToken: session.accessToken,
-        }
+        },
     });
+
 };
