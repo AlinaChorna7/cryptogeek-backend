@@ -1,5 +1,7 @@
-import { loginUser, logoutUser, refreshUsersSession, registerUser } from "../servises/auth.js";
+import { loginUser, logoutUser, refreshUsersSession, registerUser,loginOrSignupWithGoogle } from "../servises/auth.js";
 import { ONE_DAY } from "../constans/index.js";
+import {generateAuthUrl} from '../utils/googleOAuth2.js';
+
 
 
 export const registerUserController = async (req, res)=>{
@@ -72,5 +74,33 @@ refreshToken: req.cookies.refreshToken,
             accessToken: session.accessToken,
         },
     });
+
+};
+
+
+export const getGoogleAuthURLController = async (req, res)=>{
+const url = generateAuthUrl();
+res.json({
+    status: 200,
+    message: 'Successfully get Google OAuth url!',
+    data:{
+        url,
+    }
+});
+};
+
+
+export const loginWithGoogleController = async (req, res)=>{
+
+const session = await loginOrSignupWithGoogle(req.body.code);
+setupSession(res, session);
+
+res.json({
+    status: 200,
+    message: 'Successfully logged in via Google OAuth!',
+    data:{
+        accessToken: session.accessToken
+    },
+});
 
 };
